@@ -32,7 +32,9 @@ function BigSlide(props) {
                         </div>
                     </div>
                     <div className={styles.supporters}>
-                        {props.data.supporters} Supporters
+                        <div className={styles["supporter-count"]}>
+                            <b>{props.data.supporters}</b> Supporters
+                        </div>
                     </div>
                 </div>
             </div>

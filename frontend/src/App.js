@@ -7,6 +7,9 @@ import Layout from "./components/Layout/Layout";
 import HomePage from "./pages/HomePage/HomePage";
 
 function App() {
+
+  document.body.style.overflowX = "hidden";
+
   return (
     <Layout>
       <Routes>

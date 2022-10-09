@@ -1,11 +1,13 @@
 .content{
     width: 1200px;
-    height: 1000px;
+    height: 100%;
     background-size: 1200px;
     background-repeat: no-repeat;
     background-position: 50% -130px;
     margin: 0px;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .heading{
@@ -15,6 +17,7 @@
 }
 
 .sub-heading{
+    margin-top: 0px;
     font-weight: 400;
 }
 
@@ -27,14 +30,13 @@
 .start-button{
     border-radius: 5%;
     background-color: rgb(236, 44, 34);
-    width: 160px;
-    margin-top: 15px;
-    height: 50px;
+    padding: 16px;
     color: white;
     font-weight: 600;
     font-size: 16px;
     font-family: Arial, Helvetica, sans-serif;
     border: none;
+    margin-top: 20px;
 }
 
 .start-button:hover{
