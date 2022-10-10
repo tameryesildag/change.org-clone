@@ -33,7 +33,7 @@ function MainNavigator() {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/login-or-register">Login</Link>
+                        <Link to="/login-or-register">Log in</Link>
                     </li>
                 </ul>
             </nav>

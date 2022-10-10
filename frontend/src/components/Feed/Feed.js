@@ -41,7 +41,6 @@ const petitions = [
 ]
 
 function Feed(props){
-
     return(
         <div className={styles.feed}>
             <div className={styles["petition-container"]}>
