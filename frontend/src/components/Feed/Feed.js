@@ -44,9 +44,6 @@ function Feed(props){
 
     return(
         <div className={styles.feed}>
-            <div className={styles["feed-heading"]}>
-                What's happening on Change.org
-            </div>
             <div className={styles["petition-container"]}>
                 {petitions.map((petition, index) => {
                     return <PetitionCard key={index} data={petition}></PetitionCard>

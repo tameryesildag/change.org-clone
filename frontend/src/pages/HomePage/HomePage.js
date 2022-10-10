@@ -10,6 +10,9 @@ function HomePage(props) {
             <h2 className={styles["sub-heading"]}>494,036,697 people taking action <div className={styles["red-text"]}>Victories every day.</div></h2>
             <button className={styles["start-button"]}>Start a petition</button>
             <Slider></Slider>
+            <div className={styles["feed-heading"]}>
+                What's happening on Change.org
+            </div>
             <Feed></Feed>
         </div>
     )
