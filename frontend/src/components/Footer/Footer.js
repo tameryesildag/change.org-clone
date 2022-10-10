@@ -4,7 +4,7 @@ function Footer(){
 
     return(
         <footer className={styles.footer}>
-            <div class={styles["column-container"]}>
+            <div className={styles["column-container"]}>
                 <ul>
                     <li className={styles.title}>Company</li>
                     <li>About</li>

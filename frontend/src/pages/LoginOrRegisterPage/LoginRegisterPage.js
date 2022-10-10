@@ -1,5 +1,6 @@
 import { useState } from "react";
 import LoginForm from "../../components/LoginForm/LoginForm";
+import RegisterForm from "../../components/RegisterForm/RegisterForm";
 import styles from "./LoginRegisterPage.module.css";
 
 function LoginRegisterPage(){
@@ -27,7 +28,7 @@ function LoginRegisterPage(){
             <div className={styles["form-container"]}>
                 <h1 className={styles["form-heading"]}>Register</h1>
                 <p className={styles["form-info"]}>If you have an account <div className={styles["switch-link"]} onClick={switchForm}>Log in</div></p>
-                <LoginForm></LoginForm>
+                <RegisterForm></RegisterForm>
             </div>
         )
     }
