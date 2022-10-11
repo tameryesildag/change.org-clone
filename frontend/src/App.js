@@ -5,21 +5,24 @@ import StartPetitionPage from "./pages/StartAPetitionPage/StartPetitionPage";
 import UserPage from "./pages/UserPage/UserPage";
 import Layout from "./components/Layout/Layout";
 import HomePage from "./pages/HomePage/HomePage";
+import { AuthProvider } from "./contexts/AuthContext";
 
 function App() {
 
   document.body.style.overflowX = "hidden";
 
   return (
-    <Layout>
-      <Routes>
-        <Route path="/" element={<HomePage/>}></Route>
-        <Route path="/start-a-petition" element={<StartPetitionPage/>}></Route>
-        <Route path="/petitions" element={<PetitionsPage/>}></Route>
-        <Route path="/user/:id" element={<UserPage/>}></Route>
-        <Route path="/login-or-register" element={<LoginRegisterPage/>}></Route>
-      </Routes>
-    </Layout>
+    <AuthProvider>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<HomePage />}></Route>
+          <Route path="/start-a-petition" element={<StartPetitionPage />}></Route>
+          <Route path="/petitions" element={<PetitionsPage />}></Route>
+          <Route path="/user/:id" element={<UserPage />}></Route>
+          <Route path="/login-or-register" element={<LoginRegisterPage />}></Route>
+        </Routes>
+      </Layout>
+    </AuthProvider>
   );
 }
 

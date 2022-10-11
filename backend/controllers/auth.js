@@ -3,10 +3,14 @@ import jwt from "jsonwebtoken";
 import bcrpyt from "bcrypt";
 
 export async function register(req, res, next){
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
     const email = req.body.email;
     const rawPassword = req.body.password;
     const hash = await bcrpyt.hash(rawPassword, 10);
     const newUser = new User({
+        firstName: firstName,
+        lastName: lastName,
         email: email,
         password: hash
     })

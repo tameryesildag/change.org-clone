@@ -2,8 +2,17 @@ import { Link } from "react-router-dom";
 import styles from "./MainNavigator.module.css";
 import logo from "../../assets/navlogo.png";
 import searchLogo from "../../assets/searchlogo.png";
+import { useContext } from "react";
+import AuthContext from "../../contexts/AuthContext";
 
 function MainNavigator() {
+
+    const authValues = useContext(AuthContext);
+
+    function logoutHandler(){
+        authValues.setToken(null);
+    }
+
     return (
         <header className={styles.header}>
             <nav className={styles.nav}>
@@ -33,7 +42,7 @@ function MainNavigator() {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/login-or-register">Log in</Link>
+                        {authValues.token ? <div onClick={logoutHandler}>Log out</div> : <Link to="/login-or-register">Log in</Link>}
                     </li>
                 </ul>
             </nav>

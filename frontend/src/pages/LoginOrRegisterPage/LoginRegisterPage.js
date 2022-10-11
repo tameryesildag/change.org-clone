@@ -18,7 +18,7 @@ function LoginRegisterPage(){
             <div className={styles["form-container"]}>
                 <h1 className={styles["form-heading"]}>Log in</h1>
                 <p className={styles["form-info"]}>Don't have an account? <div className={styles["switch-link"]} onClick={switchForm}>Sign up</div></p>
-                <LoginForm></LoginForm>
+                <LoginForm setFormType={setFormType} ></LoginForm>
             </div>
         )
     }
@@ -26,9 +26,9 @@ function LoginRegisterPage(){
     if(formType == "register"){
         return(
             <div className={styles["form-container"]}>
-                <h1 className={styles["form-heading"]}>Register</h1>
+                <h1 className={styles["form-heading"]}>Sign Up</h1>
                 <p className={styles["form-info"]}>If you have an account <div className={styles["switch-link"]} onClick={switchForm}>Log in</div></p>
-                <RegisterForm></RegisterForm>
+                <RegisterForm setFormType={setFormType}></RegisterForm>
             </div>
         )
     }

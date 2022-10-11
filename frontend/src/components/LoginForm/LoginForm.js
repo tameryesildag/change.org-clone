@@ -1,6 +1,7 @@
 import styles from "./LoginForm.module.css";
 import usePost from "../../hooks/usePost";
-import { useRef } from "react";
+import { useRef, useContext } from "react";
+import AuthContext from "../../contexts/AuthContext";
 
 function LoginForm(props) {
 
@@ -8,9 +9,14 @@ function LoginForm(props) {
     const passwordRef = useRef();
     const postRequest = usePost();
 
-    function submitHandler(event) {
+    const authValues = useContext(AuthContext);
+
+    async function submitHandler(event) {
         event.preventDefault();
-        postRequest(process.env.REACT_APP_HOST + "/login", {email: emailRef.current.value, password: passwordRef.current.value});
+        const resData = await postRequest(process.env.REACT_APP_HOST + "/login", {email: emailRef.current.value, password: passwordRef.current.value});
+        if(resData.token){
+            authValues.setToken(resData.token);
+        }
     }
 
     return (
