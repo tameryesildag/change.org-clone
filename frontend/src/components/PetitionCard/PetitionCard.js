@@ -26,7 +26,7 @@ function PetitionCard(props) {
             </div>
             <div className={styles.bottom}>
                 <div className={styles.creator}>
-                    {props.data.creator}
+                    {props.data.creator.firstName + " " + props.data.creator.lastName}
                 </div>
                 <div className={styles.supporters}>
                     <b>{props.data.supporters}</b> Supporters

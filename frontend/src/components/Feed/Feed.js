@@ -1,5 +1,6 @@
 import PetitionCard from "../PetitionCard/PetitionCard";
 import styles from "./Feed.module.css";
+import useGet from "../../hooks/useGet";
 
 const petitions = [
     {
@@ -41,10 +42,13 @@ const petitions = [
 ]
 
 function Feed(props){
+
+    const getRequest = useGet(process.env.REACT_APP_HOST + "/petitions");
+
     return(
         <div className={styles.feed}>
             <div className={styles["petition-container"]}>
-                {petitions.map((petition, index) => {
+                {getRequest.isPending ? "Loading" : getRequest.data.petitions.map((petition, index) => {
                     return <PetitionCard key={index} data={petition}></PetitionCard>
                 })}
             </div>

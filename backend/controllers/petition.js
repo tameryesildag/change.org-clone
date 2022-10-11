@@ -1,9 +1,9 @@
 import Petition from "../models/petition.js";
 
 export async function getAllPetitions(req, res, next){
-    const petitions = await Petition.find();
+    const petitions = await Petition.find().populate("creator").limit(6);
     if(petitions.length == 0) return res.status(404).json({error: "Couldn't find any petition."});
-    return res.status(200).json(petitions);
+    return res.status(200).json({petitions});
 }
 
 export async function getPetition(req, res, next){

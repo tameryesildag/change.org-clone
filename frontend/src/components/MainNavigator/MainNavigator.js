@@ -23,7 +23,7 @@ function MainNavigator() {
                 </div>
                 <ul className={styles["nav-list-left"]}>
                     <li>
-                        <Link to="/start-a-petition">Start a Petition</Link>
+                        {authValues.token ? <Link to="/start-a-petition">Start a Petition</Link> : <Link to="/login-or-register">Start a Petition</Link>} 
                     </li>
                     <li>
                         <Link to="/user/me">My Petitions</Link>

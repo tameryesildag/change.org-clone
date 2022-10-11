@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 
 const usePost = () => {
 
-    function postRequest(url, data){
+    function postRequest(url, data, token){
         return new Promise((resolve, reject) => {
             fetch(url, {
                 method: "POST",
                 headers : {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "token": token
                 },
                 body: JSON.stringify(data)
             }).then(res => {
