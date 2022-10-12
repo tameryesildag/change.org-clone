@@ -1,6 +1,7 @@
 import PetitionCard from "../PetitionCard/PetitionCard";
 import styles from "./Feed.module.css";
 import useGet from "../../hooks/useGet";
+import ReactLoading from "react-loading";
 
 const petitions = [
     {
@@ -48,9 +49,10 @@ function Feed(props){
     return(
         <div className={styles.feed}>
             <div className={styles["petition-container"]}>
-                {getRequest.isPending ? "Loading" : getRequest.data.petitions.map((petition, index) => {
+                {getRequest.isPending ? <ReactLoading type="bubbles" color="#808080"></ReactLoading> : getRequest.data.petitions.map((petition, index) => {
                     return <PetitionCard key={index} data={petition}></PetitionCard>
                 })}
+                {getRequest.error ? <p>Couldn't get the data.</p> : null}
             </div>
         </div>
     )

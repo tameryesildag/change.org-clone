@@ -4,10 +4,11 @@ const useGet = (url) => {
 
     const [data, setData] = useState(null);
     const [isPending, setIsPending] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         fetch(url).then(res => {
-            if (!res.ok) return alert("Couldn't fetch data!");
+            if (!res.ok) return setError("Couldn't get the data.");
             return res.json();
         }).then(resData => {
             setData(resData);
@@ -15,7 +16,7 @@ const useGet = (url) => {
         })
     }, [url]);
 
-    return {data, isPending}
+    return {data, isPending, error}
 
 }
 

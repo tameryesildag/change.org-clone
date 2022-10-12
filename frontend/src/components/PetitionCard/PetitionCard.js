@@ -29,7 +29,7 @@ function PetitionCard(props) {
                     {props.data.creator.firstName + " " + props.data.creator.lastName}
                 </div>
                 <div className={styles.supporters}>
-                    <b>{props.data.supporters}</b> Supporters
+                    <b>{props.data.signs}</b> Supporters
                 </div>
             </div>
         </div>
