@@ -1,74 +1,111 @@
-.header{
-    width: 100%;
-    border-bottom: 1px solid rgba(54, 49, 53, 0.2);
+.header {
+  width: 100%;
+  height: 60px;
+  font-family: Arial, Helvetica, sans-serif;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
 
-.logo{
+.nav {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.nav a {
+  color: inherit;
+  text-decoration: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+.nav-list-left {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+  margin-right: 210px;
+}
+
+.nav-list-left li {
+    height: 100%;
     display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 30px;
+}
+
+.nav-list-left li a {
+}
+
+.nav-list-left li a:hover {
+    color: rgb(236, 44, 34);
+}
+
+.logo-container {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 30px;
+}
+
+.logo img {
+    height: 30px;
+}
+
+.nav-list-right {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    margin: 0px;
+}
+
+.nav-list-right li {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
+    margin-right: 20px;
 }
 
-.logo img{
-    
+.nav-list-right li a {
+
 }
 
-.search-logo{
-    width: 20px;
-    height: 20px;
-}
-
-.nav{
-    font-size: 18px;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    font-family: Arial, Helvetica, sans-serif;
-    color: rgb(54, 49, 53);
-}
-
-.nav-list-left{
-    list-style-type: none;
-    display: flex;
-    flex-direction: row;
-    padding-right: 200px;
-}
-
-.nav-list-left li{
-    padding-top: 2px;
-    margin-right: 25px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-.nav-list-left li a{
-    text-decoration: none;
-    color: inherit;
-}
-
-.nav-list-left li a:hover{
-    color:rgb(236, 44, 34)
-}
-
-.nav-list-right{
-    list-style-type: none;
-    display: flex;
-    flex-direction: row;
-}
-
-.nav-list-right li{
-    margin-right: 25px;
-}
-
-.nav-list-right li a{
-    padding-top: 2px;
-    text-decoration: none;
-    color: inherit;
-    vertical-align: baseline;
-}
-
-.nav-list-right li a:hover{
+.nav-list-right li a:hover {
     color: rgb(236, 44, 34);
+}
+
+.search-icon {
+    width: 20px;
+}
+
+.profile-icon {
+    width: 25px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    min-width: 160px;
+    z-index: 1;
+    margin-top: 16px;
+    background-color: white;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
 }
