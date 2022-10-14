@@ -16,7 +16,7 @@ function LoginForm(props) {
         const resData = await postRequest(process.env.REACT_APP_HOST + "/login", {email: emailRef.current.value, password: passwordRef.current.value});
         if(resData.token){
             authValues.setToken(resData.token);
-            authValues.setUserId(resData.userId);
+            authValues.setUser(resData.user);
         }
     }
 

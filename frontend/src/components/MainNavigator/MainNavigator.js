@@ -50,10 +50,14 @@ function MainNavigator() {
                         </Link>
                     </li>
                     <li>
-                        {true ? <div id="dropdown" onClick={dropdownHandler} className={styles.dropdown}>
+                        {authValues.token ? <div id="dropdown" onClick={dropdownHandler} className={styles.dropdown}>
                             <img className={styles["profile-icon"]} src={userImage}></img>
                             <div id="dropdown-content" className={styles["dropdown-content"]}>
-                                <p>Test</p>
+                                <p className={styles["dropdown-button"]}>My Petitions</p>
+                                <p className={styles["dropdown-button"]}>Settings</p>
+                                <hr></hr>
+                                <p>{authValues.user.firstName + " " + authValues.user.lastName}</p>
+                                <p className={styles["logout-button"]} onClick={logoutHandler}>Log out</p>
                             </div>
                         </div> : <Link to="/login-or-register">Log in</Link>}
                     </li>

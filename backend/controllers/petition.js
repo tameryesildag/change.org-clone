@@ -1,4 +1,5 @@
 import Petition from "../models/petition.js";
+import User from "../models/user.js";
 
 export async function getAllPetitions(req, res, next){
     const petitions = await Petition.find().populate("creator").limit(6);
@@ -30,4 +31,11 @@ export async function deletePetition(req, res, next){
     if(petition.creator.toString() != req.userId.toString()) return res.status(401).json({error: "You don't have permission to delete this petition."});
     await petition.remove();
     return res.status(200).json({message: "Petition has been deleted."});
+}
+
+export async function getUser(req, res, next){
+    if(!req.params.id) return res.status(400).json({error: "User id cannot be null."});
+    const user = await User.findOne({_id: req.params.id});
+    if(!user) return res.status(400).json({error: "Couldn't find the user."});
+    res.status(200).json({user});
 }

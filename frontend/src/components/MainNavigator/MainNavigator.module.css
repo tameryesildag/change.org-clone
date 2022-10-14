@@ -92,6 +92,10 @@
     width: 25px;
 }
 
+.profile-icon:hover{
+    cursor: pointer;
+}
+
 .dropdown {
     position: relative;
     display: inline-block;
@@ -108,4 +112,24 @@
     box-sizing: border-box;
     padding: 10px;
     border: 1px solid rgba(0, 0, 0, 0.15);
+    border-top: none;
+}
+
+.dropdown-button{
+    
+}
+
+.dropdown-button:hover{
+    color: red;
+    cursor: pointer;
+}
+
+.logout-button{
+    color: red;
+    text-decoration: underline;
+}
+
+.logout-button:hover{
+    cursor: pointer;
+    color: inherit;
 }
