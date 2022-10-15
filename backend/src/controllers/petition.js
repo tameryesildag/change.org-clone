@@ -1,9 +1,17 @@
 import Petition from "../models/petition.js";
 import User from "../models/user.js";
 
-export async function getAllPetitions(req, res, next){
-    const petitions = await Petition.find().populate("creator").limit(6);
-    if(petitions.length == 0) return res.status(404).json({error: "Couldn't find any petition."});
+const ITEM_PER_PAGE = 6;
+
+export async function getPetitions(req, res, next){
+    const page = req.body.page || 1;
+    const userId = req.body.userId;
+    let petitions;
+    if(userId){
+        petitions = await Petition.find({creator: userId}).sort({createdAt: "desc"}).skip((page - 1) * ITEM_PER_PAGE).limit(ITEM_PER_PAGE).populate("creator");
+    } else {
+        petitions = await Petition.find().sort({createdAt: "desc"}).skip((page - 1) * ITEM_PER_PAGE).limit(ITEM_PER_PAGE).populate("creator");
+    }
     return res.status(200).json({petitions});
 }
 
@@ -21,6 +29,9 @@ export async function createPetition(req, res, next){
         creator: req.userId
     });
     await newPetition.save();
+    const user = await User.findOne({_id: req.userId});
+    user.petitions.push(newPetition);
+    await user.save();
     return res.status(200).json({message: "Petition has been created."});
 }
 

@@ -1,4 +1,4 @@
-
+import styles from "./UserPage.module.css";
 
 function UserPage(){
     return(

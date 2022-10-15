@@ -34,7 +34,7 @@ function MainNavigator() {
                         {authValues.token ? <Link to="/start-a-petition">Start a Petition</Link> : <Link to="/login-or-register">Start a Petition</Link>}
                     </li>
                     <li>
-                        <Link to="/user/me">My Petitions</Link>
+                        {authValues.token ? <Link to="/user/me">My Petitions</Link> : <Link to="/login-or-register">My Petitions</Link>}
                     </li>
                     <li>
                         <Link to="/petitions">Browse</Link>

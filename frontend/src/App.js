@@ -10,9 +10,9 @@ import { AuthProvider } from "./contexts/AuthContext";
 function App() {
 
   document.body.style.overflowX = "hidden";
+  window.localStorage.getItem("")
 
   return (
-    <AuthProvider>
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
@@ -22,7 +22,6 @@ function App() {
           <Route path="/login-or-register" element={<LoginRegisterPage />}></Route>
         </Routes>
       </Layout>
-    </AuthProvider>
   );
 }
 

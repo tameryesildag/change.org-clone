@@ -6,6 +6,7 @@ import petitionRouter from "./routes/petition.js";
 import mongoose from "mongoose";
 import checkAuth from "./middlewares/auth.js";
 import cors from "cors";
+import error from "./middlewares/error.js";
 
 dotenv.config();
 
@@ -24,5 +25,7 @@ app.use(checkAuth);
 app.use(petitionRouter);
 
 app.use(authRouter);
+
+app.use(error);
 
 app.listen(8000);
