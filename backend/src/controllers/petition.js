@@ -16,8 +16,8 @@ export async function getPetitions(req, res, next) {
 
 export async function getUserPetitions(req, res, next) {
     try{
-        const userId = req.body.userId;
-        const user = await User.find({_id: userId}).populate("petitions");
+        const userId = req.params.id
+        const user = await User.findOne({_id: userId}).populate("petitions");
         if(!user) throw new apiError("User not found.", 404);
         const petitions = user.petitions;
         return res.status(200).json({petitions});
