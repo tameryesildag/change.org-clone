@@ -6,7 +6,13 @@ import { Link } from "react-router-dom";
 
 function Feed(props){
 
-    const getRequest = useGet(process.env.REACT_APP_HOST + "/petitions");
+    let body = {};
+
+    if(props.userId){
+        body.userId = props.userId;
+    }
+
+    const getRequest = useGet(process.env.REACT_APP_HOST + "/petitions", body);
 
     return(
         <div className={styles.feed}>

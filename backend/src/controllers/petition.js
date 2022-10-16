@@ -5,15 +5,25 @@ import apiError from "../models/api-error.js";
 const ITEM_PER_PAGE = 6;
 
 export async function getPetitions(req, res, next) {
-    const page = req.body.page || 1;
-    const userId = req.body.userId;
-    let petitions;
-    if (userId) {
-        petitions = await Petition.find({ creator: userId }).sort({ createdAt: "desc" }).skip((page - 1) * ITEM_PER_PAGE).limit(ITEM_PER_PAGE).populate("creator");
-    } else {
-        petitions = await Petition.find().sort({ createdAt: "desc" }).skip((page - 1) * ITEM_PER_PAGE).limit(ITEM_PER_PAGE).populate("creator");
+    try {
+        const page = req.body.page || 1;
+        const petitions = await Petition.find().sort({ createdAt: "desc" }).skip((page - 1) * ITEM_PER_PAGE).limit(ITEM_PER_PAGE).populate("creator");
+        return res.status(200).json({ petitions });
+    } catch(err) {
+        next(err);
     }
-    return res.status(200).json({ petitions });
+}
+
+export async function getUserPetitions(req, res, next) {
+    try{
+        const userId = req.body.userId;
+        const user = await User.find({_id: userId}).populate("petitions");
+        if(!user) throw new apiError("User not found.", 404);
+        const petitions = user.petitions;
+        return res.status(200).json({petitions});
+    } catch(err) {
+        next(err);
+    }
 }
 
 export async function getPetition(req, res, next) {
