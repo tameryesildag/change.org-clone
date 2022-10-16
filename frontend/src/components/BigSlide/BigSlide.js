@@ -1,5 +1,5 @@
 import styles from "./BigSlide.module.css";
-import slideImage from "../../assets/slide.jpg";
+import petitionImage from "../../assets/petition.jpg";
 import userImage from "../../assets/user.png";
 
 function BigSlide(props) {
@@ -11,7 +11,7 @@ function BigSlide(props) {
     return (
         <div className={styles["big-slide"]}>
             <div className={styles["big-image"]}>
-                <img src={slideImage}></img>
+                <img src={petitionImage}></img>
             </div>
             <div className={styles["big-info"]}>
                 <div className={styles["top-info"]}>
@@ -28,12 +28,12 @@ function BigSlide(props) {
                             <img src={userImage}></img>
                         </div>
                         <div className={styles["creator-name"]}>
-                            {props.data.creator}
+                            {props.data.creator.firstName + " " +props.data.creator.lastName}
                         </div>
                     </div>
                     <div className={styles.supporters}>
                         <div className={styles["supporter-count"]}>
-                            <b>{props.data.supporters}</b> Supporters
+                            <b>{props.data.signs}</b> Supporters
                         </div>
                     </div>
                 </div>

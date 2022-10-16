@@ -1,5 +1,5 @@
 import styles from "./Slide.module.css";
-import slideImage from "../../assets/slide.jpg";
+import petitionImage from "../../assets/petition.jpg";
 
 function Slide(props){
 
@@ -9,7 +9,7 @@ function Slide(props){
     return(
         <div className={styles.slide}>
             <div className={styles["slide-image"]}>
-                <img src={slideImage}></img>
+                <img src={petitionImage}></img>
                 {props.selected ? <div className={styles["red-bar"]}></div> : <div className={styles["transparent-bar"]}></div>}
             </div>
             <div className={styles["slide-info"]}>

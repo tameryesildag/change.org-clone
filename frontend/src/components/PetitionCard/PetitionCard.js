@@ -1,5 +1,5 @@
 import styles from "./PetitionCard.module.css";
-import petitionImage from "../../assets/slide.jpg";
+import petitionImage from "../../assets/petition.jpg";
 
 function PetitionCard(props) {
 
