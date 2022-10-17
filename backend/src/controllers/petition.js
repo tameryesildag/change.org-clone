@@ -28,7 +28,7 @@ export async function getUserPetitions(req, res, next) {
 
 export async function getPetition(req, res, next) {
     try {
-        const petition = await Petition.findOne({ _id: req.params.id });
+        const petition = await Petition.findOne({ _id: req.params.id }).populate("creator");
         if (!petition) throw new apiError("Petition could not be found.", 404);
         return res.status(200).json({ petition });
     } catch (err) {

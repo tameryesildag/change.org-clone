@@ -6,6 +6,7 @@ import UserPage from "./pages/UserPage/UserPage";
 import Layout from "./components/Layout/Layout";
 import HomePage from "./pages/HomePage/HomePage";
 import { AuthProvider } from "./contexts/AuthContext";
+import PetitionPage from "./pages/PetitionPage/PetitionPage";
 
 function App() {
 
@@ -18,7 +19,8 @@ function App() {
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/start-a-petition" element={<StartPetitionPage />}></Route>
           <Route path="/petitions" element={<PetitionsPage />}></Route>
-          <Route path="/user/:id" element={<UserPage />}></Route>
+          <Route path="/user/:userId" element={<UserPage />}></Route>
+          <Route path="/petition/:petitionId" element={<PetitionPage/>}></Route>
           <Route path="/login-or-register" element={<LoginRegisterPage />}></Route>
         </Routes>
       </Layout>
