@@ -1,9 +1,14 @@
 import styles from "./HomePage.module.css";
 import background from "../../assets/background.jpg";
 import Slider from "../../components/Slider/Slider";
-import Feed from "../../components/Feed/Feed";
+import PetitionList from "../../components/PetitionList/PetitionList";
+import useGet from "../../hooks/useGet";
+import ReactLoading from "react-loading";
 
 function HomePage(props) {
+
+    const getRequest = useGet(process.env.REACT_APP_HOST + "/petitions");
+
     return (
         <div className={styles.content} style={{ backgroundImage: `url(${background})` }}>
             <h1 className={styles.heading}>The world's platform for change</h1>
@@ -13,7 +18,7 @@ function HomePage(props) {
             <div className={styles["feed-heading"]}>
                 What's happening on Change.org
             </div>
-            <Feed></Feed>
+            {getRequest.isPending ? <ReactLoading type="bubbles" color="#808080"></ReactLoading> : <PetitionList petitions={getRequest.data.petitions}></PetitionList>}
         </div>
     )
 }
