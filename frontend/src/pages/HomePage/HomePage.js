@@ -4,6 +4,7 @@ import Slider from "../../components/Slider/Slider";
 import PetitionList from "../../components/PetitionList/PetitionList";
 import useGet from "../../hooks/useGet";
 import ReactLoading from "react-loading";
+import { Link } from "react-router-dom";
 
 function HomePage(props) {
 
@@ -13,7 +14,9 @@ function HomePage(props) {
         <div className={styles.content} style={{ backgroundImage: `url(${background})` }}>
             <h1 className={styles.heading}>The world's platform for change</h1>
             <h2 className={styles["sub-heading"]}>494,036,697 people taking action <div className={styles["red-text"]}>Victories every day.</div></h2>
-            <button className={styles["start-button"]}>Start a petition</button>
+            <Link to="/start-a-petition">
+                <button className={styles["start-button"]}>Start a petition</button>
+            </Link>
             <Slider></Slider>
             <div className={styles["feed-heading"]}>
                 What's happening on Change.org
