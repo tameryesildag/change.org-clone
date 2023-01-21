@@ -38,6 +38,7 @@ export async function getPetition(req, res, next) {
 
 export async function createPetition(req, res, next) {
     try {
+        console.log(req.file);
         if (!req.userId) throw new apiError("Not authenticated.", 401);
         const newPetition = new Petition({
             title: req.body.title,

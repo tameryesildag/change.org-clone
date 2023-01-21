@@ -9,8 +9,19 @@ import cors from "cors";
 import errorHandler from "./middlewares/error-handler.js";
 import url from "url";
 import path from "path";
+import multer, { diskStorage } from "multer";
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, __dirname + '../images')
+    },
+    filename: function (req, file, cb) {
+      const uniquePrefix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+      cb(null, uniquePrefix + "-" + file.originalname);
+    }
+})
 
 dotenv.config();
 
@@ -23,6 +34,8 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(bodyParser.json())
+
+app.use(multer({storage: storage}).single("image"));
 
 app.use(checkAuth);
 
