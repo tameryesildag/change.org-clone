@@ -7,6 +7,10 @@ import mongoose from "mongoose";
 import checkAuth from "./middlewares/auth.js";
 import cors from "cors";
 import errorHandler from "./middlewares/error-handler.js";
+import url from "url";
+import path from "path";
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 dotenv.config();
 
@@ -25,6 +29,8 @@ app.use(checkAuth);
 app.use(petitionRouter);
 
 app.use(authRouter);
+
+app.use("/", express.static(path.join(__dirname, "public")));
 
 app.use(errorHandler);
 
