@@ -12,11 +12,11 @@ function MainNavigator() {
 
     function logoutHandler() {
         authValues.setToken(null);
+        authValues.setUser(null);
     }
 
     function dropdownHandler() {
         let element = document.getElementById("dropdown-content");
-        console.log(element.style.display);
         if(element.style.display === "block") return element.style.display = "none";
         element.style.display = "block";
     }

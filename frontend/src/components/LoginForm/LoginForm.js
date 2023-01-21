@@ -2,6 +2,7 @@ import styles from "./LoginForm.module.css";
 import usePost from "../../hooks/usePost";
 import { useRef, useContext } from "react";
 import AuthContext from "../../contexts/AuthContext";
+import { Navigate } from "react-router-dom";
 
 function LoginForm(props) {
 
@@ -22,12 +23,13 @@ function LoginForm(props) {
 
     return (
         <form onSubmit={submitHandler} className={styles["login-form"]}>
+            {authValues.user && (<Navigate to="/"></Navigate>)}
             <div className={styles.fields}>
                 <div className={styles.field}>
-                    <input ref={emailRef} className={styles["email-input"]} placeholder="Email"></input>
+                    <input name="email" ref={emailRef} className={styles["email-input"]} placeholder="Email"></input>
                 </div>
                 <div className={styles.field}>
-                    <input ref={passwordRef} className={styles["password-input"]} placeholder="Password"></input>
+                    <input name="password" ref={passwordRef} className={styles["password-input"]} placeholder="Password"></input>
                 </div>
                 <button  className={styles["red-button"]}>Login</button>
             </div>
