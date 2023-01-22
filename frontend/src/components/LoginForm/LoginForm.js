@@ -29,7 +29,7 @@ function LoginForm(props) {
                     <input name="email" ref={emailRef} className={styles["email-input"]} placeholder="Email"></input>
                 </div>
                 <div className={styles.field}>
-                    <input name="password" ref={passwordRef} className={styles["password-input"]} placeholder="Password"></input>
+                    <input type="password" name="password" ref={passwordRef} className={styles["password-input"]} placeholder="Password"></input>
                 </div>
                 <button  className={styles["red-button"]}>Login</button>
             </div>

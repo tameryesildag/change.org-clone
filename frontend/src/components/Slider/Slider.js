@@ -4,17 +4,24 @@ import Slide from "../Slide/Slide";
 import BigSlide from "../BigSlide/BigSlide";
 import backImage from "../../assets/back.png";
 import nextImage from "../../assets/next.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useGet from "../../hooks/useGet";
 import ReactLoading from "react-loading";
 
-const slideCount = 6;
+let slideCount = 6;
 
 function Slider(props) {
 
     const [selectedSlide, setSelectedSlide] = useState(0);
 
     const getRequest = useGet(process.env.REACT_APP_HOST + "/petitions");
+
+    useEffect(() => {
+        alert("useEffect");
+        if(!getRequest.isPending){
+            slideCount = Math.min(6, getRequest.data.petitions.length); 
+        }
+    }, [getRequest])
 
     function backOnClick() {
         let newValue = selectedSlide - 1;
@@ -38,7 +45,16 @@ function Slider(props) {
                 <div className={styles["back-button"]}>
                     <img onClick={backOnClick} src={backImage}></img>
                 </div>
-                {getRequest.isPending ? <ReactLoading type="bubbles" color="#808080"></ReactLoading> : <BigSlide data={getRequest.data.petitions[selectedSlide]}></BigSlide>}
+                {(() => {
+                    if(getRequest.isPending){
+                        return <ReactLoading type="bubbles" color="#808080"></ReactLoading>
+                    } else {
+                        if(getRequest.data.petitions.length == 0) return <div>There are no petitions.</div>;
+                        else {
+                            return <BigSlide data={getRequest.data.petitions[selectedSlide]}></BigSlide>
+                        }
+                    }
+                })()}
                 <div className={styles["next-button"]}>
                     <img onClick={nextOnClick} src={nextImage}></img>
                 </div>

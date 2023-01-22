@@ -27,7 +27,7 @@ function PetitionForm(props) {
 
         formData.append("description", descriptionRef.current.value);
 
-        axios.post(process.env.REACT_APP_HOST + "/petition", formData);
+        axios.post(process.env.REACT_APP_HOST + "/petition", formData, {headers: {"token": authValues.token}});
 
         /*
         postRequest(process.env.REACT_APP_HOST + "/petition", {

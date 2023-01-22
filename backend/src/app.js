@@ -15,7 +15,7 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, __dirname + '../images')
+      cb(null, __dirname + '../public/images');
     },
     filename: function (req, file, cb) {
       const uniquePrefix = Date.now() + '-' + Math.round(Math.random() * 1E9)
@@ -43,7 +43,7 @@ app.use(petitionRouter);
 
 app.use(authRouter);
 
-app.use("/", express.static(path.join(__dirname, "public")));
+app.use("/", express.static(path.join(__dirname, "..", "public")));
 
 app.use(errorHandler);
 

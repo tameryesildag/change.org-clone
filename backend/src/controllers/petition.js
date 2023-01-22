@@ -18,8 +18,19 @@ export async function getUserPetitions(req, res, next) {
     try{
         const userId = req.params.id
         const user = await User.findOne({_id: userId}).populate("petitions");
+        const unpopulatedUser = {...user.toObject()};
+        unpopulatedUser.petitions.forEach(petition => {
+            petition = petition._id;
+        })
         if(!user) throw new apiError("User not found.", 404);
-        const petitions = user.petitions;
+        let petitions = user.petitions.slice();
+        petitions = petitions.map(petition => {
+            petition = petition.toObject();
+            petition.creator = unpopulatedUser;
+            console.log(petition);
+            return petition;
+        })
+        console.log(petitions);
         return res.status(200).json({petitions});
     } catch(err) {
         next(err);
@@ -38,12 +49,12 @@ export async function getPetition(req, res, next) {
 
 export async function createPetition(req, res, next) {
     try {
-        console.log(req.file);
         if (!req.userId) throw new apiError("Not authenticated.", 401);
         const newPetition = new Petition({
             title: req.body.title,
             description: req.body.description,
-            creator: req.userId
+            creator: req.userId,
+            image: req.file.filename
         });
         await newPetition.save();
         const user = await User.findOne({ _id: req.userId });

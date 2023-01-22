@@ -21,7 +21,16 @@ function HomePage(props) {
             <div className={styles["feed-heading"]}>
                 What's happening on Change.org
             </div>
-            {getRequest.isPending ? <ReactLoading type="bubbles" color="#808080"></ReactLoading> : <PetitionList petitions={getRequest.data.petitions}></PetitionList>}
+            {(()=>{
+                if(getRequest.isPending){
+                    <ReactLoading type="bubbles" color="#808080"></ReactLoading>
+                } else {
+                    if(getRequest.data.petitions.length == 0) return <div>There are no petitions.</div>
+                    else{
+                        <PetitionList petitions={getRequest.data.petitions}></PetitionList>
+                    }
+                }
+            })()}
         </div>
     )
 }
