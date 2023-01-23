@@ -21,7 +21,7 @@ function PetitionCard(props) {
                     </div>
                 </div>
                 <div className={styles.image}>
-                    <img src={props.data.image}></img>
+                    <img src={process.env.REACT_APP_HOST + "/images/" + props.data.image}></img>
                 </div>
             </div>
             <div className={styles.bottom}>

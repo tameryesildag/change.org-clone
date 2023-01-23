@@ -17,7 +17,6 @@ function Slider(props) {
     const getRequest = useGet(process.env.REACT_APP_HOST + "/petitions");
 
     useEffect(() => {
-        alert("useEffect");
         if(!getRequest.isPending){
             slideCount = Math.min(6, getRequest.data.petitions.length); 
         }
