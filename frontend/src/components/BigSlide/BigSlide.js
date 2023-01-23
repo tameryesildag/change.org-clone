@@ -11,7 +11,7 @@ function BigSlide(props) {
     return (
         <div className={styles["big-slide"]}>
             <div className={styles["big-image"]}>
-                <img src={process.env.REACT_APP_HOST + "/images/" + props.data.image}></img>
+                <img src={props.data.image ? (process.env.REACT_APP_HOST + "/images/" + props.data.image) : petitionImage}></img>
             </div>
             <div className={styles["big-info"]}>
                 <div className={styles["top-info"]}>

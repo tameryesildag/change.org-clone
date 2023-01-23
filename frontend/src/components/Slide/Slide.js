@@ -9,7 +9,7 @@ function Slide(props){
     return(
         <div className={styles.slide}>
             <div className={styles["slide-image"]}>
-                <img src={process.env.REACT_APP_HOST + "/images/" + props.data.image}></img>
+                <img src={props.data.image ? (process.env.REACT_APP_HOST + "/images/" + props.data.image) : petitionImage}></img>
                 {props.selected ? <div className={styles["red-bar"]}></div> : <div className={styles["transparent-bar"]}></div>}
             </div>
             <div className={styles["slide-info"]}>

@@ -13,10 +13,14 @@
 
  .slide-info{
     height: 50%;
+    width: 100%;
     font-size: 0.8rem;
     padding: 5px;
     text-align: left;
     text-overflow: ellipsis;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    word-break: break-word;
  }
 
  .red-bar{
