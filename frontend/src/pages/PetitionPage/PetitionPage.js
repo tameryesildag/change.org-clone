@@ -1,9 +1,11 @@
 import styles from "./PetitionPage.module.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import useGet from "../../hooks/useGet";
 import ReactLoading from "react-loading";
 import AuthContext from "../../contexts/AuthContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import axios from "axios";
+import petitionImage from "../../assets/petition.jpg";
 
 function PetitionPage(props) {
 
@@ -13,6 +15,14 @@ function PetitionPage(props) {
 
     const authValues = useContext(AuthContext);
 
+    const navigation = useNavigate();
+
+    function onDeleteClick(event) {
+        axios.delete(process.env.REACT_APP_HOST + "/petition/" + petitionId, { headers: { "token": authValues.token } }).then(response => {
+            navigation("/", {replace: true});
+        });
+    }
+
     return (
         <div className={styles["petition-container"]}>
             {getRequest.isPending ? <ReactLoading type="bubbles" color="#808080"></ReactLoading> :
@@ -20,9 +30,12 @@ function PetitionPage(props) {
                     <div className={styles["title-container"]}>
                         <h1 className={styles.title}>{getRequest.data.petition.title}</h1>
                     </div>
+                    {
+                    getRequest.data.petition.image &&
                     <div className={styles["image-container"]}>
                         <img src={process.env.REACT_APP_HOST + "/images/" + getRequest.data.petition.image}></img>
                     </div>
+                    }
                     <p className={styles.description}>{getRequest.data.petition.description}</p>
                     <div className={styles["author-container"]}>
                         <Link to={"/user/" + getRequest.data.petition.creator._id}>
@@ -30,11 +43,11 @@ function PetitionPage(props) {
                         </Link>
                     </div>
                     {(() => {
-                        if(getRequest.isPending) return;
+                        if (getRequest.isPending) return;
                         else {
-                            if(!authValues.user) return;
-                            if(getRequest.data.petition.creator._id == authValues.user._id){
-                                return <div className={styles["delete-button"]}>Delete Petition</div>
+                            if (!authValues.user) return;
+                            if (getRequest.data.petition.creator._id == authValues.user._id) {
+                                return <div onClick={onDeleteClick} className={styles["delete-button"]}>Delete Petition</div>
                             }
                         }
                     })()}
