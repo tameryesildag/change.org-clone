@@ -27,7 +27,7 @@ function HomePage(props) {
                 } else {
                     if(getRequest.data.petitions.length == 0) return <div>There are no petitions.</div>
                     else{
-                        <PetitionList petitions={getRequest.data.petitions}></PetitionList>
+                       return <PetitionList petitions={getRequest.data.petitions}></PetitionList>
                     }
                 }
             })()}
