@@ -1,8 +1,21 @@
-.petition-container{
+.frame-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.left-frame{
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.right-frame{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    width: 200px;
 }
 
 .petition{
