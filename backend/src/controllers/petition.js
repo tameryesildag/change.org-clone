@@ -93,6 +93,7 @@ export async function getUser(req, res, next) {
 
 export async function signPetition(req, res, next) {
     try{
+        console.log(req.token);
         if(!req.params.id) throw new apiError("Petition id is null.", 400);
         if(!req.userId) throw new apiError("Not authenticated.", 401);
         const petition = await Petition.findOne({_id: req.params.id});

@@ -3,7 +3,7 @@ import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import useGet from "../../hooks/useGet";
 import ReactLoading from "react-loading";
 import AuthContext from "../../contexts/AuthContext";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import petitionImage from "../../assets/petition.jpg";
 
@@ -11,15 +11,21 @@ function PetitionPage(props) {
 
     let { petitionId } = useParams();
 
-    const getRequest = useGet(process.env.REACT_APP_HOST + "/petition/" + petitionId);
-
     const authValues = useContext(AuthContext);
 
     const navigation = useNavigate();
 
-    const [signs, setSigns] = useState(null);
+    const [pending, setPending] = useState(true);
 
-    setSigns(getRequest.data.petition.signs);
+    const [petitionData, setPetitionData] = useState(null);
+
+    useEffect(() => {
+        axios.get(process.env.REACT_APP_HOST + "/petition/" + petitionId).then(response => {
+            setPetitionData(response.data.petition);
+            console.log(response.data.petition);
+            setPending(false);
+        })
+    }, []);
 
     function onDeleteClick(event) {
         axios.delete(process.env.REACT_APP_HOST + "/petition/" + petitionId, { headers: { "token": authValues.token } }).then(response => {
@@ -28,39 +34,41 @@ function PetitionPage(props) {
     }
 
     function onSignClick(event) {
-        axios.post(process.env.REACT_APP_HOST + "/sign-petition/" + petitionId, {headers: {"token": authValues.token}}).then(response => {
-            setSigns(signs + 1);
+        axios.post(process.env.REACT_APP_HOST + "/sign-petition/" + petitionId,null,{headers: {"token": authValues.token}}).then(response => {
+            const newPetitionData = {...petitionData};
+            newPetitionData.signs += 1;
+            setPetitionData(newPetitionData);
         })
     }
 
-    if (getRequest.isPending) {
+    if (pending) {
         return <ReactLoading type="bubbles" color="#808080"></ReactLoading>
     }
     return (
         <div>
             <div className={styles["title-container"]}>
-                <h1 className={styles.title}>{getRequest.data.petition.title}</h1>
+                <h1 className={styles.title}>{petitionData.title}</h1>
             </div>
             <div className={styles["frame-container"]}>
                 <div className={styles["left-frame"]}>
                     <div className={styles.petition}>
                         {
-                            getRequest.data.petition.image &&
+                            petitionData.image &&
                             <div className={styles["image-container"]}>
-                                <img src={process.env.REACT_APP_HOST + "/images/" + getRequest.data.petition.image}></img>
+                                <img src={process.env.REACT_APP_HOST + "/images/" + petitionData.image}></img>
                             </div>
                         }
-                        <p className={styles.description}>{getRequest.data.petition.description}</p>
+                        <p className={styles.description}>{petitionData.description}</p>
                         <div className={styles["author-container"]}>
-                            <Link to={"/user/" + getRequest.data.petition.creator._id}>
-                                <div className={styles.author}>{getRequest.data.petition.creator.firstName + " " + getRequest.data.petition.creator.lastName}</div>
+                            <Link to={"/user/" + petitionData.creator._id}>
+                                <div className={styles.author}>{petitionData.creator.firstName + " " + petitionData.creator.lastName}</div>
                             </Link>
                         </div>
                         {(() => {
-                            if (getRequest.isPending) return;
+                            if (pending) return;
                             else {
                                 if (!authValues.user) return;
-                                if (getRequest.data.petition.creator._id == authValues.user._id) {
+                                if (petitionData.creator._id == authValues.user._id) {
                                     return <div onClick={onDeleteClick} className={styles["delete-button"]}>Delete Petition</div>
                                 }
                             }
@@ -69,8 +77,8 @@ function PetitionPage(props) {
                     </div>
                 </div>
                 <div className={styles["right-frame"]}>
-                    <div><b>{signs} people have signed.</b></div>
-                    <div className={styles["sign-button"]}>Sign this petition</div>
+                    <div><b>{petitionData.signs} people have signed.</b></div>
+                    <div onClick={onSignClick} className={styles["sign-button"]}>Sign this petition</div>
                 </div>
             </div>
         </div>
