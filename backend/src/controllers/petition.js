@@ -82,11 +82,26 @@ export async function deletePetition(req, res, next) {
 
 export async function getUser(req, res, next) {
     try {
-        if (!req.params.id) throw new apiError("User id cannot be null.", 400);
+        if (!req.params.id) throw new apiError("User id is null.", 400);
         const user = await User.findOne({ _id: req.params.id });
         if (!user) throw new apiError("User not found.", 404);
         res.status(200).json({ user });
     } catch (err) {
+        next(err);
+    }
+}
+
+export async function signPetition(req, res, next) {
+    try{
+        if(!req.params.id) throw new apiError("Petition id is null.", 400);
+        if(!req.userId) throw new apiError("Not authenticated.", 401);
+        const petition = await Petition.findOne({_id: req.params.id});
+        if(!petition) throw new apiError("Petition not found.", 404);
+        petition.signers.push(req.userId);
+        petition.signs += 1;
+        await petition.save();
+        res.status(200).json({message: "petition has been signed."});
+    } catch(err) {
         next(err);
     }
 }

@@ -17,11 +17,22 @@ function PetitionPage(props) {
 
     const navigation = useNavigate();
 
+    const [signs, setSigns] = useState(null);
+
+    setSigns(getRequest.data.petition.signs);
+
     function onDeleteClick(event) {
         axios.delete(process.env.REACT_APP_HOST + "/petition/" + petitionId, { headers: { "token": authValues.token } }).then(response => {
             navigation("/", { replace: true });
         });
     }
+
+    function onSignClick(event) {
+        axios.post(process.env.REACT_APP_HOST + "/sign-petition/" + petitionId, {headers: {"token": authValues.token}}).then(response => {
+            setSigns(signs + 1);
+        })
+    }
+
     if (getRequest.isPending) {
         return <ReactLoading type="bubbles" color="#808080"></ReactLoading>
     }
@@ -58,7 +69,8 @@ function PetitionPage(props) {
                     </div>
                 </div>
                 <div className={styles["right-frame"]}>
-                    <div><b>{getRequest.data.petition.signs} people have signed.</b></div>
+                    <div><b>{signs} people have signed.</b></div>
+                    <div className={styles["sign-button"]}>Sign this petition</div>
                 </div>
             </div>
         </div>

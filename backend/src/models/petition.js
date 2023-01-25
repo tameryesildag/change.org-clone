@@ -23,6 +23,10 @@ const petitionSchema = new mongoose.Schema({
         required: true,
         default: 0
     },
+    signers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    }],
     reasons: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Comment",

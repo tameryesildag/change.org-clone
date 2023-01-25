@@ -1,5 +1,5 @@
 import express from "express";
-import { createPetition, deletePetition, getPetitions, getPetition, getUser, getUserPetitions } from "../controllers/petition.js";
+import { createPetition, deletePetition, getPetitions, getPetition, getUser, getUserPetitions, signPetition } from "../controllers/petition.js";
 
 const petitionRouter = express.Router();
 
@@ -14,5 +14,7 @@ petitionRouter.delete("/petition/:id", deletePetition);
 petitionRouter.post("/petition", createPetition);
 
 petitionRouter.get("/user/:id", getUser);
+
+petitionRouter.post("/sign-petition/:id", signPetition);
 
 export default petitionRouter;
