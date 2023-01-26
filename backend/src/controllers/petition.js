@@ -98,10 +98,11 @@ export async function signPetition(req, res, next) {
         if(!req.userId) throw new apiError("Not authenticated.", 401);
         const petition = await Petition.findOne({_id: req.params.id});
         if(!petition) throw new apiError("Petition not found.", 404);
+        if(petition.signers.includes(req.userId)) throw new apiError("You've already signed the petition.", 400);
         petition.signers.push(req.userId);
         petition.signs += 1;
         await petition.save();
-        res.status(200).json({message: "petition has been signed."});
+        res.status(200).json({message: "Petition has been signed."});
     } catch(err) {
         next(err);
     }
