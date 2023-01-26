@@ -5,17 +5,6 @@ import ReactLoading from "react-loading";
 import { Link } from "react-router-dom";
 
 function PetitionList(props){
-
-    let url = process.env.REACT_APP_HOST;
-
-    if(props.userId){
-        url += "/user-petitions/" + props.userId;
-    } else {
-        url += "/petitions";
-    }
-
-    const getRequest = useGet(url);
-
     return(
         <div className={styles.feed}>
             <div className={styles["petition-container"]}>
