@@ -19,13 +19,20 @@ function UserPage() {
     const petitionsRequest = useGet(process.env.REACT_APP_HOST + "/user-petitions/" + userId);
 
     const userRequest = useGet(process.env.REACT_APP_HOST + "/user/" + userId);
-
+    //<ReactLoading type="bubbles" color="#808080"></ReactLoading>
     return (
         <div>
-            <div className={styles["name-container"]}>
-                {userRequest.isPending ? <ReactLoading type="bubbles" color="#808080"></ReactLoading> : <h1>{userRequest.data.user.firstName + " " + userRequest.data.user.lastName}</h1>}
-            </div>
-            {petitionsRequest.isPending ? <ReactLoading type="bubbles" color="#808080"></ReactLoading> : <PetitionList petitions={petitionsRequest.data.petitions}></PetitionList>}
+            {(() => {
+                if (petitionsRequest.isPending | userRequest.isPending) return <ReactLoading type="bubbles" color="#808080"></ReactLoading>
+                else return (
+                <div>
+                    <div className={styles["name-container"]}>
+                        <h1>{userRequest.data.user.firstName + " " + userRequest.data.user.lastName}</h1>
+                    </div>
+                    <PetitionList petitions={petitionsRequest.data.petitions}></PetitionList>
+                </div>
+                )
+            })()}
         </div>
     )
 }

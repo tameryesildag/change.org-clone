@@ -23,7 +23,7 @@ function HomePage(props) {
             </div>
             {(()=>{
                 if(getRequest.isPending){
-                    <ReactLoading type="bubbles" color="#808080"></ReactLoading>
+                    return <ReactLoading type="bubbles" color="#808080"></ReactLoading>
                 } else {
                     if(getRequest.data.petitions.length == 0) return <div>There are no petitions.</div>
                     else{
