@@ -7,6 +7,7 @@ import Layout from "./components/Layout/Layout";
 import HomePage from "./pages/HomePage/HomePage";
 import { AuthProvider } from "./contexts/AuthContext";
 import PetitionPage from "./pages/PetitionPage/PetitionPage";
+import Modal from "./components/Modal/Modal";
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
 
   return (
       <Layout>
+        <Modal></Modal>
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/start-a-petition" element={<StartPetitionPage />}></Route>

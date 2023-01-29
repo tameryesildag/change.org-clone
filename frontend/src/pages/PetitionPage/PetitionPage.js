@@ -6,6 +6,7 @@ import AuthContext from "../../contexts/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import petitionImage from "../../assets/petition.jpg";
+import ModalContext from "../../contexts/ModalContext";
 
 function PetitionPage(props) {
 
@@ -13,16 +14,21 @@ function PetitionPage(props) {
 
     const authValues = useContext(AuthContext);
 
+    const modalValues = useContext(ModalContext);
+
     const navigation = useNavigate();
 
     const [pending, setPending] = useState(true);
 
     const [petitionData, setPetitionData] = useState(null);
 
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const [modalDescription, setModalDescription] = useState("");
+
     useEffect(() => {
         axios.get(process.env.REACT_APP_HOST + "/petition/" + petitionId).then(response => {
             setPetitionData(response.data.petition);
-            console.log(response.data.petition);
             setPending(false);
         })
     }, []);
@@ -38,6 +44,12 @@ function PetitionPage(props) {
             const newPetitionData = {...petitionData};
             newPetitionData.signs += 1;
             setPetitionData(newPetitionData);
+        }).catch(err => {
+            if(err.response){
+                if(err.response.data.error){
+                    modalValues.showModal(err.response.data.error);
+                }
+            }
         })
     }
 
