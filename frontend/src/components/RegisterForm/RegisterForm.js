@@ -1,7 +1,9 @@
 import styles from "./RegisterForm.module.css";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import usePost from "../../hooks/usePost";
 import {redirect} from "react-router-dom"
+import axios from "axios";
+import ModalContext from "../../contexts/ModalContext";
 
 function RegisterForm(props) {
 
@@ -12,15 +14,21 @@ function RegisterForm(props) {
 
     const postRequest = usePost();
 
+    const modalValues = useContext(ModalContext);
+
     async function submitHandler(event){
         event.preventDefault();
-        postRequest(process.env.REACT_APP_HOST + "/register", {
+        axios.post(process.env.REACT_APP_HOST + "/register", {
             firstName: firstNameRef.current.value,
             lastName: lastNameRef.current.value,
             email: emailRef.current.value,
             password: passwordRef.current.value
+        }).then(response => {
+            modalValues.showModal("User has been created.");
+            props.setFormType("login");
+        }).catch(err => {
+            modalValues.showModal("There was an error creating the user.");
         });
-        props.setFormType("login");
     }
 
     return (
