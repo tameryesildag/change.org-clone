@@ -45,11 +45,7 @@ function PetitionPage(props) {
             newPetitionData.signs += 1;
             setPetitionData(newPetitionData);
         }).catch(err => {
-            if(err.response){
-                if(err.response.data.error){
-                    modalValues.showModal(err.response.data.error);
-                }
-            }
+            modalValues.showModal(err.response.data.error);
         })
     }
 

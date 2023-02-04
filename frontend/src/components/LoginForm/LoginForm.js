@@ -3,6 +3,8 @@ import usePost from "../../hooks/usePost";
 import { useRef, useContext } from "react";
 import AuthContext from "../../contexts/AuthContext";
 import { Navigate } from "react-router-dom";
+import ModalContext from "../../contexts/ModalContext";
+import axios from "axios";
 
 function LoginForm(props) {
 
@@ -12,13 +14,16 @@ function LoginForm(props) {
 
     const authValues = useContext(AuthContext);
 
+    const modalValues = useContext(ModalContext);
+
     async function submitHandler(event) {
         event.preventDefault();
-        const resData = await postRequest(process.env.REACT_APP_HOST + "/login", {email: emailRef.current.value, password: passwordRef.current.value});
-        if(resData.token){
-            authValues.setToken(resData.token);
-            authValues.setUser(resData.user);
-        }
+        axios.post(process.env.REACT_APP_HOST + "/login", {email: emailRef.current.value, password: passwordRef.current.value}).then(response => {
+            authValues.setToken(response.data.token);
+            authValues.setUser(response.data.user);
+        }).catch(err => {
+            modalValues.showModal(err.response.data.error);
+        });
     }
 
     return (
