@@ -3,10 +3,13 @@ import { useRef, useContext, useState } from "react";
 import AuthContext from "../../contexts/AuthContext";
 import usePost from "../../hooks/usePost";
 import axios from "axios";
+import ModalContext from "../../contexts/ModalContext";
+import { useNavigate } from "react-router-dom";
 
 function PetitionForm(props) {
 
     const authValues = useContext(AuthContext);
+    const modalValues = useContext(ModalContext);
 
     const postRequest = usePost();
 
@@ -14,6 +17,8 @@ function PetitionForm(props) {
 
     const titleRef = useRef();
     const descriptionRef = useRef();
+
+    const navigation = useNavigate();
 
     function submitHandler(event){
 
@@ -27,13 +32,10 @@ function PetitionForm(props) {
 
         formData.append("description", descriptionRef.current.value);
 
-        axios.post(process.env.REACT_APP_HOST + "/petition", formData, {headers: {"token": authValues.token}});
-
-        /*
-        postRequest(process.env.REACT_APP_HOST + "/petition", {
-            title: titleRef.current.value,
-            description: descriptionRef.current.value
-        }, authValues.token); */
+        axios.post(process.env.REACT_APP_HOST + "/petition", formData, {headers: {"token": authValues.token}}).then(response => {
+            modalValues.showModal("Petition has been created.");
+            navigation("/");
+        });
     }
 
     function onFileChange(event){
